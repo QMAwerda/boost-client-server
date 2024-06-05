@@ -1,4 +1,4 @@
 tmp.cpp
-./build
-./.cache
-./.vscode
+./build/
+./.cache/
+./.vscode/
