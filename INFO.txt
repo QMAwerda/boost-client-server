@@ -1,0 +1,16 @@
+                                                    Chapter 1
+In that stage of program we made the SimpleExample.cpp, that uses asio for send the GET query on the ip that we need.
+    [We can get the domain name with the command 'host wikipedia.org', and ip with 'nslookup 198.35.26.96' in terminal]  
+We can put 2 ip addresses for example in our tcp endpoint (comments);
+
+If we will test it with the first IP, all is correct. We get all data that we need, cause our page sending everything in one go
+But when we use second IP(51.83...), we see the problems with out sync approach. 
+Sync approach:
+    1. Send request to get the data
+    2. Wait until server send data to us
+    3. Take all sent bytes and show it
+It's pretty simple, but we have problems in second IP:
+(1) We don't know how much data server will send to us. Maybe it's one message like in the first IP, and we will get all data 
+in one go, maybe not, and server will send us X amount of bytes Y times; We don't know
+(2) We don't know how long server will reply us to our request. And we can't wait too long, cause we need to give work for our 
+recourses. We can't have idle recourses, it's can make our program slowly.
