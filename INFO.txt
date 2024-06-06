@@ -14,3 +14,21 @@ It's pretty simple, but we have problems in second IP:
 in one go, maybe not, and server will send us X amount of bytes Y times; We don't know
 (2) We don't know how long server will reply us to our request. And we can't wait too long, cause we need to give work for our 
 recourses. We can't have idle recourses, it's can make our program slowly.
+                                                    Chapter 2
+So how can we fix these troubles? 
+We need to make async data reading, it's will work in the background.
+Async reading can work not immediately after the func call, and it help us, cause the server can send data to us in small portions
+We make buffer so long, as we need, and pull data to our buffer until we have unread data.
+        Question1: For what do we use context?
+        Question2: Server send data to us many times, or we ask server to send it to us many times? How async_read_some is working?
+        Question3: Should i always use the lambda function for that?
+When our async func haven't avalable data, it's waiting in the background. When server will have more data (mb dynamic making),
+then our func will get available data and get more code. Than wait again. If some data arrives, async func will read it and 
+display on the console
+        Question4: How long that async method will work in the background? Can we make a timer?
+We use boost::asio::io_context::work idleWork(context); to make our asio a fake tasks, cause without that, we won't have time to
+get the data.
+        Question4: How is working boost::asio::io_context::work idleWork(context) ?
+We need sleep time at the end, because our reading in the different thread, and we just haven't time in our main programm to 
+async reading (cause it's not start immediately)
+        Question5: How is working the context.run() ?
